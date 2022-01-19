@@ -13,7 +13,8 @@ import { LoggerMiddleware } from './common/middleware';
 import { ConfigModule } from './config/config.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from './users/users.service';
-import { User } from './users/user.entity';
+import { UsersModule } from './users/users.module';
+import { PhotosModule } from './photos/photos.module';
 
 @Module({
   imports: [
@@ -24,11 +25,13 @@ import { User } from './users/user.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: null,
-      database: 'mycv',
-      entities: [User],
+      password: 'root',
+      database: 'test',
+      autoLoadEntities: true,
       synchronize: true,
     }),
+    UsersModule,
+    PhotosModule,
   ],
   controllers: [AppController],
   providers: [
