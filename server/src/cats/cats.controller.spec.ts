@@ -17,6 +17,8 @@ describe('Cats Controller', () => {
     breed: 'Breed #1',
     age: 4,
     _id: 'a id',
+    tags: [],
+    details: {},
   };
 
   beforeEach(async () => {
