@@ -1,49 +1,65 @@
 import { Test } from '@nestjs/testing';
 import { randomUUID } from 'crypto';
 import { CatsController } from './cats.controller';
+import { CatsService } from './cats.service';
+
+const cat = { age: 1, breed: 'Tabby', name: 'Viljo' };
+
+const catsServiceMock = {
+  findAll: async () => [cat],
+  create: async () => cat,
+  findOne: async () => cat,
+  update: async () => cat,
+  remove: async () => {
+    return;
+  },
+};
 
 describe('CatsController', () => {
   let controller: CatsController;
 
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
       controllers: [CatsController],
-    }).compile();
+      providers: [CatsService],
+    })
+      .overrideProvider(CatsService)
+      .useValue(catsServiceMock)
+      .compile();
 
-    controller = module.get(CatsController);
-  });
-
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+    controller = moduleRef.get(CatsController);
   });
 
   describe('findAll', () => {
-    it('should return "This action returns all cats"', () => {
-      expect(controller.findAll()).toBe('This action returns all cats');
+    it('should return an array of cats', async () => {
+      expect(await controller.findAll()).toStrictEqual([cat]);
     });
   });
 
   describe('create', () => {
-    it('should return "This action adds a new cat"', () => {
-      expect(controller.create()).toBe('This action adds a new cat');
-    });
-  });
-  describe('findOne', () => {
-    it('should return "This action returns a #{id} cat"', () => {
-      const id = randomUUID();
-      expect(controller.findOne(id)).toBe(`This action returns a #${id} cat`);
+    it('should return the created cat', async () => {
+      expect(await controller.create(cat)).toBe(cat);
     });
   });
 
-  describe('getDocs', () => {
-    it('should return undefined when version is omitted', () => {
-      expect(controller.getDocs()).toBeUndefined();
+  describe('findOne', () => {
+    it('should return the cat with the id', async () => {
+      const id = randomUUID();
+      expect(await controller.findOne(id)).toBe(cat);
     });
-    it('should return url when version is 5', () => {
-      expect(controller.getDocs(5)).toHaveProperty(
-        'url',
-        'https://docs.nestjs.com/v5/',
-      );
+  });
+
+  describe('update', () => {
+    it('should return the updated cat', async () => {
+      const id = randomUUID();
+      expect(await controller.update(id, cat)).toBe(cat);
+    });
+  });
+
+  describe('remove', () => {
+    it('should return undefined after deleting a cat', async () => {
+      const id = randomUUID();
+      expect(await controller.remove(id)).toBe(undefined);
     });
   });
 });
