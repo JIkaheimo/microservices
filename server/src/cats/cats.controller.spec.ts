@@ -2,18 +2,7 @@ import { Test } from '@nestjs/testing';
 import { randomUUID } from 'crypto';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
-
-const cat = { age: 1, breed: 'Tabby', name: 'Viljo' };
-
-const catsServiceMock = {
-  findAll: async () => [cat],
-  create: async () => cat,
-  findOne: async () => cat,
-  update: async () => cat,
-  remove: async () => {
-    return;
-  },
-};
+import { catMock, catsServiceMock } from './cats.service.mock';
 
 describe('CatsController', () => {
   let controller: CatsController;
@@ -32,27 +21,27 @@ describe('CatsController', () => {
 
   describe('findAll', () => {
     it('should return an array of cats', async () => {
-      expect(await controller.findAll()).toStrictEqual([cat]);
+      expect(await controller.findAll()).toEqual([catMock]);
     });
   });
 
   describe('create', () => {
     it('should return the created cat', async () => {
-      expect(await controller.create(cat)).toBe(cat);
+      expect(await controller.create(catMock)).toBe(catMock);
     });
   });
 
   describe('findOne', () => {
     it('should return the cat with the id', async () => {
       const id = randomUUID();
-      expect(await controller.findOne(id)).toBe(cat);
+      expect(await controller.findOne(id)).toBe(catMock);
     });
   });
 
   describe('update', () => {
     it('should return the updated cat', async () => {
       const id = randomUUID();
-      expect(await controller.update(id, cat)).toBe(cat);
+      expect(await controller.update(id, catMock)).toBe(catMock);
     });
   });
 
