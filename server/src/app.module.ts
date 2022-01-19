@@ -30,6 +30,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       database: 'test',
       autoLoadEntities: true,
       synchronize: true,
+      logging: false,
     }),
     MongooseModule.forRoot('mongodb://localhost:27017/test'),
     UsersModule,
