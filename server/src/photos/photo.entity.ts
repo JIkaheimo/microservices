@@ -1,5 +1,12 @@
 import { User } from 'src/users/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { PhotoMetadata } from './photo-metadata.entity';
 
 @Entity()
 export class Photo {
@@ -23,4 +30,7 @@ export class Photo {
 
   @ManyToOne(() => User, (user) => user.photos)
   user: User;
+
+  @OneToOne(() => PhotoMetadata, (photoMetadata) => photoMetadata.photo)
+  metadata: PhotoMetadata;
 }
