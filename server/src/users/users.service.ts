@@ -38,4 +38,20 @@ export class UsersService {
       await manager.save(users[1]);
     });
   }
+
+  async example() {
+    const user = new User();
+    user.firstName = 'Timber';
+    user.lastName = 'Saw';
+    await this.usersRepository.save(user);
+
+    const allUsers = await this.usersRepository.find();
+    const firstUser = await this.usersRepository.findOne(1); // find by id
+    const timber = await this.usersRepository.findOne({
+      firstName: 'Timber',
+      lastName: 'Saw',
+    });
+
+    await this.usersRepository.remove(timber);
+  }
 }
