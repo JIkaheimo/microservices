@@ -15,6 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { PhotosModule } from './photos/photos.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { PhotosModule } from './photos/photos.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    MongooseModule.forRoot('mongodb://localhost:27017/test'),
     UsersModule,
     PhotosModule,
   ],

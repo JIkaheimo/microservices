@@ -1,31 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { randomUUID } from 'crypto';
-import { Cat } from './interfaces';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { CreateCatDto } from './dto/create-cat.dto';
+import { Cat, CatDocument } from './schemas/cat.schema';
 
 @Injectable()
 export class CatsService {
-  private readonly cats: { [id: string]: Cat } = {};
+  constructor(
+    @InjectModel(Cat.name) private readonly catModel: Model<CatDocument>,
+  ) {}
 
-  async create(cat: Cat): Promise<Cat> {
-    const id = randomUUID();
-    this.cats[id] = cat;
-    return this.cats[id];
+  async create(createCatDto: CreateCatDto): Promise<Cat> {
+    const createdCat = await this.catModel.create(createCatDto);
+    return createdCat;
   }
 
   async findAll(): Promise<Cat[]> {
-    return Object.values(this.cats);
-  }
-
-  async findOne(id: string): Promise<Cat> {
-    return this.cats[id];
-  }
-
-  async update(id: string, cat: Cat): Promise<Cat> {
-    this.cats[id] = cat;
-    return this.cats[id];
-  }
-
-  async remove(id: string): Promise<void> {
-    delete this.cats[id];
+    return this.catModel.find().exec();
   }
 }

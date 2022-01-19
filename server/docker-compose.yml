@@ -9,3 +9,10 @@ services:
       MYSQL_DATABASE: test
     ports:
       - '3306:3306'
+
+  mongodb:
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE="test"
+    ports:
+      - 27017:27017
