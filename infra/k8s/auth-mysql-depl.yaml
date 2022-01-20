@@ -1,20 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-mongo-depl
+  name: auth-mysql-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth-mongo
+      app: auth-mysql
   template:
     metadata:
       labels:
-        app: auth-mongo
+        app: auth-mysql
     spec:
       containers:
-        - name: auth-mongo
-          image: mongo
+        - name: auth-mysql
+          image: mysql:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
 ---
 apiVersion: v1
 kind: Service
