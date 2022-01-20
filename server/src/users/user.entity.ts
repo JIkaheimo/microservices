@@ -1,13 +1,15 @@
-import { Photo } from '../photos/photo.entity';
+import { Exclude } from 'class-transformer';
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
+  Entity,
   Generated,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Photo } from '../photos/photo.entity';
 
 export enum UserRole {
+  USER = 'user',
   ADMIN = 'admin',
   EDITOR = 'editor',
   GHOST = 'ghost',
@@ -27,6 +29,13 @@ export class User {
 
   @Column()
   lastName: string;
+
+  @Exclude()
+  @Column()
+  password: string;
+
+  @Column()
+  username: string;
 
   @Column('simple-array')
   names: string[];

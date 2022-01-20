@@ -24,11 +24,15 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  findOne(id: string): Promise<User> {
+  findOne(id: User['id']): Promise<User> {
     return this.usersRepository.findOne(id);
   }
 
-  async remove(id: string): Promise<void> {
+  findByUsername(username: User['username']): Promise<User> {
+    return this.usersRepository.findOne({ where: { username } });
+  }
+
+  async remove(id: User['id']): Promise<void> {
     await this.usersRepository.delete(id);
   }
 

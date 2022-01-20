@@ -76,10 +76,10 @@ describe('UsersController', () => {
 
   describe('findOne()', () => {
     it('should find a user', () => {
-      expect(usersController.findOne('1')).resolves.toEqual({
+      expect(usersController.findOne(1)).resolves.toEqual({
         firstName: 'firstName #1',
         lastName: 'lastName #1',
-        id: '1',
+        id: 1,
       });
       expect(usersService.findOne).toHaveBeenCalled();
     });
@@ -87,7 +87,7 @@ describe('UsersController', () => {
 
   describe('remove()', () => {
     it('should remove the user', () => {
-      usersController.remove('2');
+      usersController.remove(2);
       expect(usersService.remove).toHaveBeenCalled();
     });
   });

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Connection, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
-import { Connection, Repository } from 'typeorm';
 
 const userArray = [
   {
@@ -79,16 +79,16 @@ describe('UserService', () => {
   describe('findOne()', () => {
     it('should get a single user', () => {
       const repoSpy = jest.spyOn(repository, 'findOne');
-      expect(service.findOne('1')).resolves.toEqual(oneUser);
-      expect(repoSpy).toBeCalledWith('1');
+      expect(service.findOne(1)).resolves.toEqual(oneUser);
+      expect(repoSpy).toBeCalledWith(1);
     });
   });
 
   describe('remove()', () => {
     it('should call remove with the passed value', async () => {
       const removeSpy = jest.spyOn(repository, 'delete');
-      const retVal = await service.remove('2');
-      expect(removeSpy).toBeCalledWith('2');
+      const retVal = await service.remove(2);
+      expect(removeSpy).toBeCalledWith(2);
       expect(retVal).toBeUndefined();
     });
   });
