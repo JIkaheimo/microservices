@@ -1,27 +1,29 @@
 import {
+  CacheModule,
   MiddlewareConsumer,
   Module,
   NestModule,
   ValidationPipe,
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import {
-  databaseConfig,
-  databaseConfigSchema,
-} from './database/database.config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as redisStore from 'cache-manager-redis-store';
+import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { HttpExceptionFilter } from './common/filter';
 import { LoggerMiddleware } from './common/middleware';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersService } from './users/users.service';
-import { UsersModule } from './users/users.module';
-import { PhotosModule } from './photos/photos.module';
-import { MongooseModule } from '@nestjs/mongoose';
+import {
+  databaseConfig,
+  databaseConfigSchema,
+} from './database/database.config';
 import { EnvironmentVariables } from './environment-variables.interface';
-import * as Joi from 'joi';
+import { PhotosModule } from './photos/photos.module';
+import { UsersModule } from './users/users.module';
+import { UsersService } from './users/users.service';
 
 @Module({
   imports: [
@@ -46,6 +48,12 @@ import * as Joi from 'joi';
         ...config.get('database'),
         autoLoadEntities: true,
       }),
+    }),
+    CacheModule.register({
+      store: redisStore,
+      // Store-specific configuration:
+      host: 'localhost',
+      port: 6379,
     }),
     CatsModule,
 
