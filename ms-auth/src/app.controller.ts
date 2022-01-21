@@ -1,12 +1,28 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
+import { RegistrationData } from './authentication/dto/registration-data.dto';
 
-@Controller()
+@Controller('api/users')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  private logger: Logger = new Logger(AppController.name);
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Post('register')
+  register(@Body() registrationData: RegistrationData) {
+    this.logger.debug('Creatring a new user!');
+    return registrationData;
+  }
+
+  @Post('login')
+  login() {
+    return 'Hi there!';
+  }
+
+  @Post('logout')
+  logout() {
+    return 'Hi there!';
+  }
+
+  @Get('current-user')
+  getCurrentUser() {
+    return 'Hi there!';
   }
 }

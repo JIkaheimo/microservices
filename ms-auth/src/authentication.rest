@@ -1,0 +1,7 @@
+POST https://ticketing.dev/api/users/register
+Content-Type: application/json
+
+{
+  "email": "asd",
+  "password": "a"
+}
