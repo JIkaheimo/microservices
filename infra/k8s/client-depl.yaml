@@ -25,7 +25,11 @@ spec:
     app: client
   type: ClusterIP
   ports:
-    - name: client
+    - name: client-tcp
       protocol: TCP
       port: 3000
       targetPort: 3000
+    - name: client-hmr
+      protocol: TCP
+      port: 443
+      targetPort: 443

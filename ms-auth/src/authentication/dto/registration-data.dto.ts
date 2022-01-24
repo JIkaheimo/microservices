@@ -7,7 +7,7 @@ import { IUser } from 'src/users/user.interface';
 export class RegistrationData implements IUser {
   @IsEmail()
   @Transform((email) => email.value.trim())
-  @UniqueOnDatabase(User)
+  @UniqueOnDatabase(User, { message: 'Email is already in use' })
   readonly email: IUser['email'];
 
   @IsString()

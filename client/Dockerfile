@@ -27,7 +27,7 @@
 
 # CMD [ "yarn", "start" ]
 
-FROM node:alpine
+FROM node:lts
 
 WORKDIR /app
 

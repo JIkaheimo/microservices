@@ -893,6 +893,20 @@
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.2.29.tgz#07dac7051117236431d2f737d16932aa38bbb925"
   integrity sha512-BjNpU8OK6Z0LVzGUppEk0CMYm/hKDnZfYdjSmPOs0N+TR1cLKJAkDwW8ASZUvaaSLEi6d3hVM7jnWnX+6yWnHw==
 
+"@vuelidate/core@^2.0.0-alpha.34":
+  version "2.0.0-alpha.34"
+  resolved "https://registry.npmjs.org/@vuelidate/core/-/core-2.0.0-alpha.34.tgz#4a2ce2ae18c8ffadb76b296b2c7c0e10a2f48a37"
+  integrity sha512-8SHViBA+bBaXGH8UwcdGG7vEQ8mG8rhtsddJiq9Abz9YvzWxFxd8spAhe9ggfCtyRuvwCCpPbxx63NOGThVZkQ==
+  dependencies:
+    vue-demi "^0.12.0"
+
+"@vuelidate/validators@^2.0.0-alpha.26":
+  version "2.0.0-alpha.26"
+  resolved "https://registry.npmjs.org/@vuelidate/validators/-/validators-2.0.0-alpha.26.tgz#dbea8d44b7607ac0b4dced36ea3e4641f1617942"
+  integrity sha512-O53AU/dGMMOEPMC6bqhs9JvJAz03z0lLxIDq1tL8bWZylzRWeuF9a2sERxy82t2MnQ+ag15tUpTFpTbaYBm9tg==
+  dependencies:
+    vue-demi "^0.12.0"
+
 "@vueuse/head@^0.7.5":
   version "0.7.5"
   resolved "https://registry.npmjs.org/@vueuse/head/-/head-0.7.5.tgz#0284e3dc53ea6709196956bf25115eea863a847a"
@@ -1239,6 +1253,13 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
+axios@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.npmjs.org/axios/-/axios-0.25.0.tgz#349cfbb31331a9b4453190791760a8d35b093e0a"
+  integrity sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==
+  dependencies:
+    follow-redirects "^1.14.7"
+
 babel-loader@^8.2.3:
   version "8.2.3"
   resolved "https://registry.npmjs.org/babel-loader/-/babel-loader-8.2.3.tgz#8986b40f1a64cacfcb4b8429320085ef68b1342d"
@@ -1298,6 +1319,16 @@ boolbase@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
+
+bootstrap@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-5.1.3.tgz#ba081b0c130f810fa70900acbc1c6d3c28fa8f34"
+  integrity sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==
+
+bootswatch@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.npmjs.org/bootswatch/-/bootswatch-5.1.3.tgz#aa6bd96acbaff9d5f7b1215a8ae00b68d918a26f"
+  integrity sha512-NmZFN6rOCoXWQ/PkzmD8FFWDe24kocX9OXWHNVaLxVVnpqpAzEbMFsf8bAfKwVtpNXibasZCzv09B5fLieAh2g==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -2474,7 +2505,7 @@ flat@^5.0.0:
   resolved "https://registry.npmjs.org/flat/-/flat-5.0.2.tgz#8ca6fe332069ffa9d324c327198c598259ceb241"
   integrity sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.14.7:
   version "1.14.7"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
   integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
@@ -3327,7 +3358,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.npmjs.org/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.20:
+lodash@^4.17.20, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -5154,6 +5185,11 @@ vue-bundle-renderer@^0.3.5:
   integrity sha512-LmiGFvlK3ZVtUklpJKVmVkJcmpkLEHKE9YbSR6WgFULIikw3pusXhX3vZPkL9tGcjzBERVrB9CQYDGdWApnEJQ==
   dependencies:
     bundle-runner "^0.0.1"
+
+vue-demi@^0.12.0:
+  version "0.12.1"
+  resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
+  integrity sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==
 
 vue-loader@^17.0.0:
   version "17.0.0"

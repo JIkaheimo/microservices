@@ -24,3 +24,5 @@ build:
         manual:
           - src: "pages/**/*.vue"
             dest: .
+          - src: "layouts/**/*.vue"
+            dest: .

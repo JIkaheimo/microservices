@@ -5,11 +5,28 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
 spec:
   rules:
     - host: ticketing.dev
       http:
         paths:
+          - path: "/_nuxt/(.+)"
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 3000
+          - path: "/_nuxt/"
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 443
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
