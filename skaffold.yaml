@@ -26,3 +26,9 @@ build:
             dest: .
           - src: "layouts/**/*.vue"
             dest: .
+          - src: "components/**/*.vue"
+            dest: .
+          - src: "compositions/**/*.ts"
+            dest: .
+          - src: "api/**/*.ts"
+            dest: .

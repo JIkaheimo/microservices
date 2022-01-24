@@ -48,21 +48,23 @@ export const useVuelidation = ({ validations = {}, state = {} }) => {
     $externalResults.value = errors;
   };
 
-  const submitForm = async (callback, errorHandler) => {
-    v$.value.$clearExternalResults();
-    v$.value.$touch();
+  const submitForm =
+    (callback, errorHandler = setErrors) =>
+    async () => {
+      v$.value.$clearExternalResults();
+      v$.value.$touch();
 
-    if (v$.value.$error) return;
-    isSubmitting.value = true;
+      if (v$.value.$error) return;
+      isSubmitting.value = true;
 
-    try {
-      await callback();
-    } catch (error) {
-      if (errorHandler) errorHandler(error);
-    } finally {
-      isSubmitting.value = false;
-    }
-  };
+      try {
+        await callback();
+      } catch (error) {
+        if (errorHandler) errorHandler(error);
+      } finally {
+        isSubmitting.value = false;
+      }
+    };
 
   return {
     submitForm,

@@ -5,34 +5,23 @@
     </div>
 
     <div class="card-body d-grid gap-3">
-      <div class="form-group" :class="{ 'has-danger': hasError('email') }">
-        <label class="form-label" for="email">Email Address</label>
-        <input
-          v-model="form.email"
-          id="email"
-          name="email"
-          type="email"
-          class="form-control"
-          :class="{ 'is-invalid': hasError('email') }"
-        />
-        <div class="invalid-feedback" v-if="hasError('email')">
-          {{ getErrorMessage("email") }}
-        </div>
-      </div>
-      <div class="form-group" :class="{ 'has-danger': hasError('password') }">
-        <label class="form-label" for="password">Password</label>
-        <input
-          v-model="form.password"
-          id="password"
-          name="password"
-          type="password"
-          class="form-control"
-          :class="{ 'is-invalid': hasError('password') }"
-        />
-        <div class="invalid-feedback" v-if="hasError('password')">
-          {{ getErrorMessage("password") }}
-        </div>
-      </div>
+      <BaseInput
+        v-model:value="form.email"
+        label="Email Address"
+        autocomplete="email"
+        id="email"
+        type="email"
+        :error="getErrorMessage('email')"
+      />
+
+      <BaseInput
+        v-model:value="form.password"
+        label="Password"
+        autocomplete="new-password"
+        id="password"
+        type="password"
+        :error="getErrorMessage('password')"
+      />
       <button class="btn btn-primary">Register</button>
     </div>
   </form>
@@ -42,6 +31,9 @@
 import { api } from "~~/api";
 import { required, email } from "@vuelidate/validators";
 import { useVuelidation } from "~~/compositions/useVuelidation";
+import BaseInput from "~~/components/base/BaseInput.vue";
+
+const router = useRouter();
 
 const form = reactive({
   email: "",
@@ -53,7 +45,7 @@ const validations = {
   password: { required },
 };
 
-const { getErrorMessage, submitForm, setErrors, hasError } = useVuelidation({
+const { getErrorMessage, submitForm, setErrors } = useVuelidation({
   validations,
   state: form,
 });
@@ -62,9 +54,8 @@ definePageMeta({
   layout: "wrapper",
 });
 
-const register = async () => {
-  submitForm(async () => {
-    const user = await api.post("users/register", form);
-  }, setErrors);
-};
+const register = submitForm(async () => {
+  const user = await api.post("users/register", form);
+  await router.push("/");
+});
 </script>
