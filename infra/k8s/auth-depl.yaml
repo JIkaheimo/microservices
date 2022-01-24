@@ -16,11 +16,11 @@ spec:
         - name: ms-auth
           image: jikaheimo/ms-auth
           env:
-            - name: JWT_KEY
+            - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  key: JWT_KEY
+                  key: JWT_SECRET
 ---
 apiVersion: v1
 kind: Service

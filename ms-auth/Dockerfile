@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package.json .
 RUN yarn
 COPY . .
-RUN yarn build
+# RUN yarn build
 
-CMD ["yarn", "start:prod"]
+CMD ["yarn", "start:dev"]
+# CMD ["yarn", "start:prod"]

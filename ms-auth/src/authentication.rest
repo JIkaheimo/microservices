@@ -2,6 +2,26 @@ POST https://ticketing.dev/api/users/register
 Content-Type: application/json
 
 {
-  "email": "asd",
-  "password": "a"
+  "email": "asaasasasdsasdasadd@test1.com",
+  "password": "aasdasd"
+}
+
+###
+GET https://ticketing.dev/api/users/current-user
+Content-Type: application/json
+
+{
+  "email": "asaasasasdsasdasadd@test1.com",
+  "password": "aasdasd"
+}
+
+
+###
+
+POST https://ticketing.dev/api/users/logout
+Content-Type: application/json
+
+{
+  "email": "asa@test1.com",
+  "password": "aasdasd"
 }

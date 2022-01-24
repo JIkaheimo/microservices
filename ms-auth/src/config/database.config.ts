@@ -1,15 +1,16 @@
 import { registerAs } from '@nestjs/config';
 import 'dotenv/config';
 import * as Joi from 'joi';
+import { isTesting } from './env.config';
 
-const DEFAULT_DB_HOST = 'localhost';
+const DEFAULT_DB_HOST = 'auth-mysql-srv';
 const DEFAULT_DB_PORT = 3306;
 const DEFAULT_DB_USERNAME = 'root';
 const DEFAULT_DB_PASSWORD = 'root';
-const DEFAULT_DB_NAME = 'test';
+const DEFAULT_DB_NAME = isTesting() ? ':memory:' : 'test';
 
 export interface DatabaseConfig {
-  type: 'mysql';
+  type: 'mysql' | 'better-sqlite3';
   host: string;
   port: number;
   username: string;
@@ -17,6 +18,7 @@ export interface DatabaseConfig {
   database: string;
   synchronize: boolean;
   logging: boolean;
+  dropSchema: boolean;
 }
 
 export const databaseConfigSchema = {
@@ -30,7 +32,7 @@ export const databaseConfigSchema = {
 export const databaseConfig = registerAs(
   'database',
   (): DatabaseConfig => ({
-    type: 'mysql',
+    type: isTesting() ? 'better-sqlite3' : 'mysql',
     host: process.env.DB_HOST ?? DEFAULT_DB_HOST,
     port: parseInt(process.env.DB_PORT, 10) || DEFAULT_DB_PORT,
     username: process.env.DB_USERNAME ?? DEFAULT_DB_USERNAME,
@@ -38,5 +40,6 @@ export const databaseConfig = registerAs(
     database: process.env.DB_NAME ?? DEFAULT_DB_NAME,
     synchronize: process.env.NODE_ENV !== 'production',
     logging: false,
+    dropSchema: isTesting(),
   }),
 );

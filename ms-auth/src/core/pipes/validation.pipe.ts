@@ -28,14 +28,18 @@ export class ValidationPipe extends BaseValidationPipe {
     });
   }
 
+  /**
+   * Formats validation errors to be more consistent.
+   */
   private formatErrors(errors: ValidationError[]) {
     return errors.reduce(
       (formattedErrors, { property, constraints }) => ({
         ...formattedErrors,
-        [property]: Object.values(constraints).map(
-          ([firstChar, ...rest]) =>
-            firstChar.toUpperCase() + rest.join('') + '.',
-        ),
+        [property]: Object.values(constraints)
+          .map((message) => message.replace(property, '').trim())
+          .map(
+            ([firstChar, ...rest]) => firstChar.toUpperCase() + rest.join(''),
+          ),
       }),
       {},
     );

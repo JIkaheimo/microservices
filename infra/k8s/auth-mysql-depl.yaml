@@ -3,32 +3,39 @@ kind: Deployment
 metadata:
   name: auth-mysql-depl
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: auth-mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: auth-mysql
     spec:
       containers:
-        - name: auth-mysql
-          image: mysql:latest
+        - image: mariadb:latest
+          name: auth-mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
+            - name: MARIADB_DATABASE
+              value: test
+          ports:
+            - containerPort: 3306
+              name: auth-mysql
+              protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-mongo-srv
+  name: auth-mysql-srv
+  labels:
+    name: auth-mysql
 spec:
   selector:
-    app: auth-mongo
-  type: ClusterIP
+    app: auth-mysql
   ports:
-    - name: db
+    - port: 3306
       protocol: TCP
-      port: 27017
-      targetPort: 27017
+      targetPort: 3306
