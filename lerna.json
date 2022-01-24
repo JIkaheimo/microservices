@@ -1,4 +1,4 @@
 {
-  "packages": ["ms-auth", "server"],
+  "packages": ["ms-auth", "server", "client"],
   "version": "0.0.0"
 }
