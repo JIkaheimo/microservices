@@ -1,0 +1,19 @@
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   scope: '@jikaheimo/ms-auth',
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js',
+0 silly argv   pkg: '@jikaheimo/common'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath C:\Users\35840\Desktop\dev\microservices\jikaheimo
+3 notice filter including "@jikaheimo/ms-auth"
+4 info filter [ '@jikaheimo/ms-auth' ]
+5 error TypeError: Cannot read properties of undefined (reading 'split')
+5 error     at Minimatch.match (C:\Users\35840\Desktop\dev\microservices\jikaheimo\node_modules\minimatch\minimatch.js:713:11)
+5 error     at C:\Users\35840\Desktop\dev\microservices\jikaheimo\node_modules\minimatch\minimatch.js:691:15
+5 error     at Array.filter (<anonymous>)
+5 error     at Function.minimatch.match (C:\Users\35840\Desktop\dev\microservices\jikaheimo\node_modules\minimatch\minimatch.js:690:15)
+5 error     at module.exports (C:\Users\35840\Desktop\dev\microservices\jikaheimo\node_modules\multimatch\index.js:25:39)
+5 error     at filterPackages (C:\Users\35840\Desktop\dev\microservices\jikaheimo\node_modules\@lerna\filter-packages\filter-packages.js:44:28)

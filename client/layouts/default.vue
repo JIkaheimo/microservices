@@ -4,9 +4,17 @@
       <div class="container">
         <NuxtLink to="/" class="navbar-brand mb-0 h1">Ticketing</NuxtLink>
 
-        <button @click="onLogout" v-if="user" class="btn btn-secondary" type="button">
-          Logout
-        </button>
+        <div>
+          <template v-if="!user">
+            <NuxtLink to="/auth/register" class="btn btn-secondary mx-1"
+              >Register</NuxtLink
+            >
+            <NuxtLink to="/auth/login" class="btn btn-secondary">Login</NuxtLink>
+          </template>
+          <button @click="onLogout" v-else class="btn btn-secondary" type="button">
+            Logout
+          </button>
+        </div>
       </div>
     </nav>
     <div class="container">
@@ -19,6 +27,7 @@
 import { getCurrentUser, logout } from "~~/api";
 import { useUser } from "~~/composables/state";
 
+const router = useRouter();
 const user = useUser();
 
 user.value = await useAsyncData("currentUser", () =>
@@ -28,5 +37,6 @@ user.value = await useAsyncData("currentUser", () =>
 const onLogout = async () => {
   await logout();
   user.value = null;
+  await router.push("/auth/login");
 };
 </script>

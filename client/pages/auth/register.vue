@@ -42,7 +42,6 @@ import { useVuelidation } from "~~/composables/useVuelidation";
 import { useUser } from "~~/composables/state";
 
 const user = useUser();
-
 const router = useRouter();
 
 const form = reactive({
@@ -58,10 +57,6 @@ const validations = {
 const { getErrorMessage, submitForm, generalError } = useVuelidation({
   validations,
   state: form,
-});
-
-definePageMeta({
-  layout: "wrapper",
 });
 
 const register = submitForm(async () => {
