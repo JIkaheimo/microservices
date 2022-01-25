@@ -1,6 +1,6 @@
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from "@nestjs/typeorm";
-import { EnvironmentVariables } from "./environment-variables.interface";
+import { EnvironmentVariables } from "../variables.interface";
 
 export class DatabaseModule extends TypeOrmModule {
   static forRootAsync(options?: TypeOrmModuleAsyncOptions) {

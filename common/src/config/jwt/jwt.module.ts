@@ -1,6 +1,6 @@
 import { ConfigService } from "@nestjs/config";
 import { JwtModule as BaseJwtModule, JwtModuleAsyncOptions } from "@nestjs/jwt";
-import { EnvironmentVariables } from "./environment-variables.interface";
+import { EnvironmentVariables } from "../variables.interface";
 
 export class JwtModule extends BaseJwtModule {
   static registerAsync(options?: JwtModuleAsyncOptions) {

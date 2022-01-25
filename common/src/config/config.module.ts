@@ -3,9 +3,9 @@ import {
   ConfigModuleOptions,
 } from "@nestjs/config";
 import * as Joi from "joi";
-import { databaseConfig, databaseConfigSchema } from "./database.config";
-import { envConfig, envConfigSchema } from "./env.config";
-import { jwtConfig, jwtConfigSchema } from "./jwt.config";
+import { databaseConfig, databaseConfigSchema } from "./database";
+import { envConfig, envConfigSchema } from "./environment";
+import { jwtConfig, jwtConfigSchema } from "./jwt";
 
 export class ConfigModule extends BaseConfigModule {
   static forRoot(options?: ConfigModuleOptions) {
