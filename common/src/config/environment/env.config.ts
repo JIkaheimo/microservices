@@ -1,7 +1,7 @@
 import { registerAs } from "@nestjs/config";
+import { isTesting } from "../helpers";
 import { Environment } from "./env.enum";
 import { EnvConfig } from "./env.interface";
-import { isTesting } from "./helpers";
 
 export const envConfig = registerAs(
   "env",
