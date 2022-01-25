@@ -5,13 +5,11 @@
 </template>
 
 <script setup lang="ts">
-import { getCurrentUser } from "~~/api";
+import { useUser } from "~~/composables/state";
 
 definePageMeta({
   layout: "wrapper",
 });
 
-const { data: user } = await useAsyncData("currentUser", () =>
-  getCurrentUser({ headers: useRequestHeaders(["cookie"]) })
-);
+const user = useUser();
 </script>

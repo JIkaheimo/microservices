@@ -22,6 +22,9 @@
         type="password"
         :error="getErrorMessage('password')"
       />
+
+      <p v-if="generalError" class="text-danger">{{ generalError }}</p>
+
       <button class="btn btn-primary">Register</button>
     </div>
 
@@ -34,8 +37,11 @@
 <script setup lang="ts">
 import { api } from "~~/api";
 import { required, email } from "@vuelidate/validators";
-import { useVuelidation } from "~~/compositions/useVuelidation";
 import BaseInput from "~~/components/base/BaseInput.vue";
+import { useVuelidation } from "~~/composables/useVuelidation";
+import { useUser } from "~~/composables/state";
+
+const user = useUser();
 
 const router = useRouter();
 
@@ -49,7 +55,7 @@ const validations = {
   password: { required },
 };
 
-const { getErrorMessage, submitForm } = useVuelidation({
+const { getErrorMessage, submitForm, generalError } = useVuelidation({
   validations,
   state: form,
 });
@@ -59,7 +65,7 @@ definePageMeta({
 });
 
 const register = submitForm(async () => {
-  await api.post("users/register", form);
+  user.value = await api.post("users/register", form);
   await router.push("/");
 });
 </script>

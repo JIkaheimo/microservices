@@ -8,3 +8,7 @@ export const getCurrentUser = async (config?: AxiosRequestConfig) => {
   );
   return user;
 };
+
+export const logout = async (config?: AxiosRequestConfig) => {
+  return await api.post("users/logout", config);
+};

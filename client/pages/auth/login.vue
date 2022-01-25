@@ -37,8 +37,11 @@
 <script setup lang="ts">
 import { api } from "~~/api";
 import { required, email } from "@vuelidate/validators";
-import { useVuelidation } from "~~/compositions/useVuelidation";
 import BaseInput from "~~/components/base/BaseInput.vue";
+import { useVuelidation } from "~~/composables/useVuelidation";
+import { useUser } from "~~/composables/state";
+
+const user = useUser();
 
 const router = useRouter();
 
@@ -62,7 +65,7 @@ definePageMeta({
 });
 
 const login = submitForm(async () => {
-  await api.post("users/login", form);
+  user.value = await api.post("users/login", form);
   await router.push("/");
 });
 </script>

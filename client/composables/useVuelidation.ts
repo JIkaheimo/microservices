@@ -48,8 +48,9 @@ export const useVuelidation = ({ validations = {}, state = {} }) => {
   const setErrors = (errors) => {
     if (typeof errors === "object") {
       $externalResults.value = errors;
+    } else {
+      generalError.value = errors;
     }
-    generalError.value = errors;
   };
 
   const submitForm =
