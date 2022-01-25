@@ -1,10 +1,13 @@
-import { ValidationPipe } from '@jikaheimo/common';
+import {
+  ConfigModule,
+  DatabaseModule,
+  ValidationPipe,
+} from '@jikaheimo/common';
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { ConfigModule, DatabaseModule } from './config';
 import { UsersModule } from './users/users.module';
 
 @Module({

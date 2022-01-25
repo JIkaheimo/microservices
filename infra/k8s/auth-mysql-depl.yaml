@@ -18,9 +18,12 @@ spec:
           name: auth-mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_PASSWORD
             - name: MARIADB_DATABASE
-              value: test
+              value: auth
           ports:
             - containerPort: 3306
               name: auth-mysql

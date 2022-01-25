@@ -15,7 +15,14 @@ spec:
       containers:
         - name: ms-tickets
           image: jikaheimo/ms-tickets
+          envFrom:
+            - secretRef:
+                name: mysql-secret
           env:
+            - name: MYSQL_HOST
+              value: tickets-mysql-srv
+            - name: MYSQL_DB_NAME
+              value: tickets
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
