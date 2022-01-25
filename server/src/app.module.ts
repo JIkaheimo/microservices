@@ -20,7 +20,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { CatsModule } from './cats/cats.module';
 import { HttpExceptionFilter } from './common/filter';
-import { LoggerMiddleware } from './common/middleware';
+import { LoggerMiddleware } from '../../common/src/middleware';
 import {
   databaseConfig,
   databaseConfigSchema,

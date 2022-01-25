@@ -1,6 +1,6 @@
+import { UniqueOnDatabase } from '@jikaheimo/common';
 import { Transform } from 'class-transformer';
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
-import { UniqueOnDatabase } from 'src/core/decorators';
 import { User } from 'src/users/entities/user.entity';
 import { IUser } from 'src/users/user.interface';
 

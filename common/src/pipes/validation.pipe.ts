@@ -3,8 +3,8 @@ import {
   Injectable,
   ValidationPipe as BaseValidationPipe,
   ValidationPipeOptions,
-} from '@nestjs/common';
-import { ValidationError } from 'class-validator';
+} from "@nestjs/common";
+import { ValidationError } from "class-validator";
 
 /**
  * Wrapper around the default validation pipe to display more meaningful and
@@ -36,10 +36,10 @@ export class ValidationPipe extends BaseValidationPipe {
       (formattedErrors, { property, constraints }) => ({
         ...formattedErrors,
         [property]: Object.values(constraints).map(
-          ([firstChar, ...rest]) => firstChar.toUpperCase() + rest.join(''),
+          ([firstChar, ...rest]) => firstChar.toUpperCase() + rest.join("")
         ),
       }),
-      {},
+      {}
     );
   }
 }
