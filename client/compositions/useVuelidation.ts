@@ -12,6 +12,7 @@ import { ref } from "vue";
 export const useVuelidation = ({ validations = {}, state = {} }) => {
   const $externalResults = ref({});
   const v$ = useVuelidate(validations, state, { $externalResults });
+  let generalError = ref("");
 
   /**
    * Is the form being currently submitted.
@@ -45,7 +46,10 @@ export const useVuelidation = ({ validations = {}, state = {} }) => {
   };
 
   const setErrors = (errors) => {
-    $externalResults.value = errors;
+    if (typeof errors === "object") {
+      $externalResults.value = errors;
+    }
+    generalError.value = errors;
   };
 
   const submitForm =
@@ -73,6 +77,7 @@ export const useVuelidation = ({ validations = {}, state = {} }) => {
     getErrorMessage,
     setErrors,
     hasError,
+    generalError,
     v$,
   };
 };

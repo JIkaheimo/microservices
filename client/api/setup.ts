@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
 
 const baseURL =
   typeof window === "undefined"
@@ -13,9 +13,11 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(
-  ({ data }: AxiosResponse) => data,
-  ({ response }: AxiosError) =>
-    Promise.reject(response?.data?.errors ?? response.data)
+  ({ data }) => data,
+  ({ response }) =>
+    Promise.reject(
+      response.data?.errors ?? response?.data.message ?? response.data
+    )
 );
 
 export { api };
