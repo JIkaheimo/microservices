@@ -2949,13 +2949,6 @@ before-after-hook@^2.2.0:
   resolved "https://registry.npmjs.org/before-after-hook/-/before-after-hook-2.2.2.tgz#a6e8ca41028d90ee2c24222f201c90956091613e"
   integrity sha512-3pZEU3NT5BFUo/AD5ERPWOgQOCZITni6iavr5AUw5AUwQjMlI0kzu5btnyD39AF0gUEsDPwJT+oY1ORBJijPjQ==
 
-better-mysql2@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/better-mysql2/-/better-mysql2-1.0.0.tgz#17fe9e929a88148064225ee71c788844b79536ea"
-  integrity sha512-XIcgwaee70LQyYKnbnKN+YIiUX1z4S4pP7BFzi/pGYvEFFB/ds8kH6I+Qz+sVpiBR/MPlw94yjH63PGZvGH3wg==
-  dependencies:
-    mysql2 "^2.2.5"
-
 better-sqlite3@^7.5.0:
   version "7.5.0"
   resolved "https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-7.5.0.tgz#2a91cb616453f002096743b0e5b66a7021cd1c63"
@@ -6862,7 +6855,7 @@ mute-stream@0.0.8, mute-stream@~0.0.4:
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
-mysql2@^2.2.5, mysql2@^2.3.3:
+mysql2@^2.3.3:
   version "2.3.3"
   resolved "https://registry.npmjs.org/mysql2/-/mysql2-2.3.3.tgz#944f3deca4b16629052ff8614fbf89d5552545a0"
   integrity sha512-wxJUev6LgMSgACDkb/InIFxDprRa6T95+VEoR+xPvtngtccNH2dGjEB/fVZ8yg1gWv1510c9CvXuJHi5zUm0ZA==
