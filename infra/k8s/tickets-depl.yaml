@@ -1,20 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client-depl
+  name: tickets-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: client
+      app: ms-tickets
   template:
     metadata:
       labels:
-        app: client
+        app: ms-tickets
     spec:
       containers:
-        - name: client
-          image: jikaheimo/client
+        - name: ms-tickets
+          image: jikaheimo/ms-tickets
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SECRET
           resources:
             limits:
               memory: 512Mi
@@ -26,17 +32,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: client-srv
+  name: tickets-srv
 spec:
   selector:
-    app: client
+    app: ms-tickets
   type: ClusterIP
   ports:
-    - name: client-tcp
+    - name: ms-tickets
       protocol: TCP
       port: 3000
       targetPort: 3000
-    - name: client-hmr
-      protocol: TCP
-      port: 443
-      targetPort: 443

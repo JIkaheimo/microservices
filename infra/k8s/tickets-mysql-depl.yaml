@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-mysql-depl
+  name: tickets-mysql-depl
 spec:
   selector:
     matchLabels:
-      app: auth-mysql
+      app: tickets-mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: auth-mysql
+        app: tickets-mysql
     spec:
       containers:
         - image: mariadb:latest
-          name: auth-mysql
+          name: tickets-mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
@@ -23,7 +23,7 @@ spec:
               value: test
           ports:
             - containerPort: 3306
-              name: auth-mysql
+              name: tickets-mysql
               protocol: TCP
           resources:
             limits:
@@ -36,12 +36,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-mysql-srv
+  name: tickets-mysql-srv
   labels:
-    name: auth-mysql
+    name: tickets-mysql
 spec:
   selector:
-    app: auth-mysql
+    app: tickets-mysql
   ports:
     - port: 3306
       protocol: TCP

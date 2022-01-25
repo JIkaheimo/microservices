@@ -17,6 +17,7 @@
     "ms-auth",
     "client",
     "common",
-    "server"
+    "server",
+    "ms-tickets"
   ]
 }
