@@ -1,5 +1,5 @@
+import { IUser } from '@jikaheimo/common';
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
-import { IUser } from 'src/users/user.interface';
 
 export class LoginData implements IUser {
   @IsString()

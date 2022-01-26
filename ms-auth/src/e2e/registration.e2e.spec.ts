@@ -24,7 +24,7 @@ describe('[POST] /api/users/register', () => {
       .expect(HttpStatus.BAD_REQUEST)
       .expect({
         errors: {
-          email: ['Must be an email'],
+          email: ['Email must be an email'],
         },
       });
   });
@@ -39,7 +39,7 @@ describe('[POST] /api/users/register', () => {
       .expect(HttpStatus.BAD_REQUEST)
       .expect({
         errors: {
-          password: ['Must be longer than or equal to 4 characters'],
+          password: ['Password must be longer than or equal to 4 characters'],
         },
       });
   });
@@ -79,7 +79,7 @@ describe('[POST] /api/users/register', () => {
       .expect(HttpStatus.BAD_REQUEST)
       .expect({
         errors: {
-          email: ['Already exists'],
+          email: ['Email is already in use'],
         },
       });
   });

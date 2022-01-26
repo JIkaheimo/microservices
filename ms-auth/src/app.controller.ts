@@ -1,3 +1,4 @@
+import { IUser } from '@jikaheimo/common';
 import {
   Body,
   Controller,
@@ -14,7 +15,6 @@ import { RegistrationData } from './authentication/dto/registration-data.dto';
 import { AuthenticatedRequest } from './authentication/interfaces/authenticated-request.interface';
 import { JwtAuthGuard } from './authentication/jwt-auth.guard';
 import { LocalAuthGuard } from './authentication/local-auth.guard';
-import { IUser } from './users/user.interface';
 import { UsersService } from './users/users.service';
 
 @Controller('api/users')

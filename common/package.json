@@ -10,6 +10,7 @@
     "dotenv": "^14.3.0",
     "express": "^4.17.2",
     "joi": "^17.5.0",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "typeorm": "^0.2.41"
   },
@@ -42,5 +43,5 @@
     "pub": "npm version patch && yarn build && npm publish --access public"
   },
   "types": "build/index.d.ts",
-  "version": "1.0.8"
+  "version": "1.0.10"
 }

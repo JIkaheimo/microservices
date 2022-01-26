@@ -1,6 +1,6 @@
+import { IUser } from '@jikaheimo/common';
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { IUser } from './user.interface';
 import { UsersService } from './users.service';
 
 @Controller()

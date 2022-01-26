@@ -1,8 +1,7 @@
-import { UniqueOnDatabase } from '@jikaheimo/common';
+import { IUser, UniqueOnDatabase } from '@jikaheimo/common';
 import { Transform } from 'class-transformer';
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 import { User } from 'src/users/entities/user.entity';
-import { IUser } from 'src/users/user.interface';
 
 export class RegistrationData implements IUser {
   @IsEmail()

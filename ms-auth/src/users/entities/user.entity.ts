@@ -1,3 +1,4 @@
+import { IUser } from '@jikaheimo/common';
 import { Exclude } from 'class-transformer';
 import { PasswordService } from 'src/authentication/password.service';
 import {
@@ -12,7 +13,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IUser } from '../user.interface';
 
 @Entity()
 export class User implements IUser {

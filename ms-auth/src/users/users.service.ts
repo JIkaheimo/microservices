@@ -1,9 +1,9 @@
+import { IUser } from '@jikaheimo/common';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { User } from './entities/user.entity';
-import { IUser } from './user.interface';
 
 @Injectable()
 export class UsersService {
