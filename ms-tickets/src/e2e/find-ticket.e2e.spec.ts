@@ -5,6 +5,12 @@ import { TicketsService } from 'src/tickets/tickets.service';
 import { app, authenticate, request, user } from './setup';
 
 describe('[GET] /api/tickets/:id', () => {
+  let ticketsService: TicketsService;
+
+  beforeAll(async () => {
+    ticketsService = await app.resolve(TicketsService);
+  });
+
   it('has a route handler post requests', async () => {
     return request
       .get(`/api/tickets/${randomUUID()}`)
@@ -44,8 +50,7 @@ describe('[GET] /api/tickets/:id', () => {
       userId: user.id,
     };
 
-    const tickets = await app.resolve(TicketsService);
-    const ticket = await tickets.create(ticketData);
+    const ticket = await ticketsService.create(ticketData);
 
     (await authenticate())
       .get(`/api/tickets/${ticket.id}`)

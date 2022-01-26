@@ -17,9 +17,11 @@ export const user = {
   email: 'test@test.com',
 };
 
-export const authenticate = async (): Promise<supertest.SuperAgentTest> => {
+export const authenticate = async (
+  userData = user,
+): Promise<supertest.SuperAgentTest> => {
   const jwt = await app.resolve(JwtService);
-  const token = await jwt.signAsync(user);
+  const token = await jwt.signAsync(userData);
   const cookie = `Authentication=${token}; Path=/`;
   request.set('Cookie', cookie);
   return request;
