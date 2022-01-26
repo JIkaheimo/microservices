@@ -1,10 +1,11 @@
-import { JwtAuthGuard } from '@jikaheimo/common';
+import { ITicket, JwtAuthGuard } from '@jikaheimo/common';
 import {
   Body,
   Controller,
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Req,
@@ -30,17 +31,20 @@ export class TicketsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ticketsService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) id: ITicket['id']) {
+    return this.ticketsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTicketDto: UpdateTicketDto) {
-    return this.ticketsService.update(+id, updateTicketDto);
+  update(
+    @Param('id', ParseUUIDPipe) id: ITicket['id'],
+    @Body() ticketData: UpdateTicketDto,
+  ) {
+    return this.ticketsService.update(id, ticketData);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ticketsService.remove(+id);
+  remove(@Param('id', ParseUUIDPipe) id: ITicket['id']) {
+    return this.ticketsService.remove(id);
   }
 }

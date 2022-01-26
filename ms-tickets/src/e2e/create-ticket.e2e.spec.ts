@@ -14,14 +14,14 @@ describe('[POST] /api/tickets', () => {
       });
   });
 
-  it('can only be accessed if the user is signed in', async () => {
+  it('is not accessible for unauthorized user', async () => {
     return request
       .post('/api/tickets')
       .send({})
       .expect(HttpStatus.UNAUTHORIZED);
   });
 
-  it('returns created status if the user is authenticated', async () => {
+  it('is accessible for authorized user', async () => {
     return (await authenticate())
       .post('/api/tickets')
       .send({})
