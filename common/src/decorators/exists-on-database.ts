@@ -4,8 +4,8 @@ import {
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
-} from 'class-validator';
-import { getManager } from 'typeorm';
+} from "class-validator";
+import { getManager } from "typeorm";
 
 @ValidatorConstraint({ async: true })
 export class ExistsOnDatabaseConstraint
@@ -27,7 +27,7 @@ export const ExistsOnDatabase =
       target: object.constructor,
       propertyName,
       options: {
-        message: '$property does not exist',
+        message: "$property does not exist",
         ...validationOptions,
       },
       validator: ExistsOnDatabaseConstraint,

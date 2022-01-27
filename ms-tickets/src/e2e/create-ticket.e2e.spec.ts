@@ -1,8 +1,8 @@
-import { ITicket } from '@jikaheimo/common';
+import { ITicket, Subject } from '@jikaheimo/common';
 import { HttpStatus } from '@nestjs/common';
 import { Ticket } from 'src/tickets/entities';
 import { getRepository } from 'typeorm';
-import { authenticate, request, user } from './setup';
+import { authenticate, MockPublisher, request, user } from './setup';
 
 describe('[POST] /api/tickets', () => {
   it('has a route handler post requests', async () => {
@@ -45,7 +45,7 @@ describe('[POST] /api/tickets', () => {
         },
       });
 
-    await client
+    return client
       .post('/api/tickets')
       .send({
         price: 10,
@@ -74,7 +74,7 @@ describe('[POST] /api/tickets', () => {
         },
       });
 
-    await client
+    return client
       .post('/api/tickets')
       .send({
         title: 'Test Title',
@@ -104,5 +104,24 @@ describe('[POST] /api/tickets', () => {
         expect(dbTicket).toMatchObject(ticket);
         expect(dbTicket).toHaveProperty('userId', user.id);
       });
+  });
+
+  it('publishes ticket creation event', async () => {
+    const ticketData: Omit<ITicket, 'userId'> = {
+      title: 'Test Title',
+      price: 20,
+    };
+
+    const { body: ticket } = await (await authenticate())
+      .post('/api/tickets')
+      .send(ticketData);
+
+    const dbTicket = await getRepository(Ticket).findOne(ticket.id);
+
+    expect(MockPublisher.emit).toHaveBeenCalledWith(
+      Subject.TicketCreated,
+      dbTicket,
+    );
+    expect(MockPublisher.emit).toHaveBeenCalledTimes(1);
   });
 });

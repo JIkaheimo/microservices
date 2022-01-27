@@ -27,11 +27,20 @@ export const authenticate = async (
   return request;
 };
 
+export const MockPublisher = {
+  emit: jest
+    .fn()
+    .mockImplementation((subject: string, payload: any) => payload),
+};
+
 beforeAll(async () => {
   const moduleFixture = await Test.createTestingModule({
     imports: [AppModule, JwtModule.registerAsync()],
     providers: [JwtStrategy],
-  }).compile();
+  })
+    .overrideProvider('TICKETING_NATS')
+    .useValue(MockPublisher)
+    .compile();
 
   app = moduleFixture.createNestApplication();
   app.use(cookieParser());
@@ -41,6 +50,7 @@ beforeAll(async () => {
 });
 
 beforeEach(() => {
+  jest.clearAllMocks();
   request = supertest.agent(app.getHttpServer());
 });
 

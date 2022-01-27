@@ -4,8 +4,8 @@ import {
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
-} from 'class-validator';
-import { getRepository } from 'typeorm';
+} from "class-validator";
+import { getRepository } from "typeorm";
 
 @ValidatorConstraint({ async: true })
 export class UniqueOnDatabaseExistConstraint
@@ -28,7 +28,7 @@ export const UniqueOnDatabase =
       target: object.constructor,
       propertyName,
       options: {
-        message: '$property already exists',
+        message: "$property already exists",
         ...options,
       },
       validator: UniqueOnDatabaseExistConstraint,

@@ -17,3 +17,12 @@ Content-Type: application/json
 }
 ###
 GET https://ticketing.dev/api/tickets
+
+###
+POST https://ticketing.dev/api/tickets
+Content-Type: application/json
+
+{
+  "title": "Test Title",
+  "price": 29.99
+}

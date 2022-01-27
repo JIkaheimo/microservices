@@ -1,9 +1,11 @@
-import { ITicket } from '@jikaheimo/common';
+import { ITicket, Subject } from '@jikaheimo/common';
 import { HttpStatus } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { UpdateTicketDto } from 'src/tickets/dto';
+import { Ticket } from 'src/tickets/entities';
 import { TicketsService } from 'src/tickets/tickets.service';
-import { app, authenticate, request, user } from './setup';
+import { getRepository } from 'typeorm';
+import { app, authenticate, MockPublisher, request, user } from './setup';
 
 describe('[PUT] /api/tickets/:id', () => {
   let ticketsService: TicketsService;
@@ -110,5 +112,30 @@ describe('[PUT] /api/tickets/:id', () => {
       .expect((res) => {
         expect(res.body).toMatchObject(ticketData);
       });
+  });
+
+  it('publishes ticket update event', async () => {
+    const ticket = await ticketsService.create({
+      title: 'Test Title',
+      price: 10,
+      userId: user.id,
+    });
+
+    const ticketData: UpdateTicketDto = {
+      title: 'Another Test Title',
+      price: 20,
+    };
+
+    await (await authenticate())
+      .put(`/api/tickets/${ticket.id}`)
+      .send(ticketData);
+
+    const dbTicket = await getRepository(Ticket).findOne(ticket.id);
+
+    expect(MockPublisher.emit).toHaveBeenCalledWith(
+      Subject.TicketUpdated,
+      dbTicket,
+    );
+    expect(MockPublisher.emit).toHaveBeenCalledTimes(1);
   });
 });

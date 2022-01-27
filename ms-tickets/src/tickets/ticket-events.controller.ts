@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 @Controller()
-export class TicketsEventController {
+export class TicketEventsController {
   constructor() {}
 
   @MessagePattern('tickets:findAll')

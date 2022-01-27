@@ -1,4 +1,4 @@
-import { ITicket, JwtAuthGuard } from '@jikaheimo/common';
+import { ITicket, JwtAuthGuard, Subject } from '@jikaheimo/common';
 import {
   Body,
   Controller,
@@ -28,13 +28,17 @@ export class TicketsController {
   ) {}
 
   @Post()
-  create(@Req() { user }, @Body() ticketData: CreateTicketDto) {
-    return this.ticketsService.create({ ...ticketData, userId: user.id });
+  async create(@Req() { user }, @Body() ticketData: CreateTicketDto) {
+    const ticket = await this.ticketsService.create({
+      ...ticketData,
+      userId: user.id,
+    });
+    this.client.emit<number, ITicket>(Subject.TicketCreated, ticket);
+    return ticket;
   }
 
   @Get()
   async findAll() {
-    await this.client.send('tickets:findAll', {}).toPromise();
     return this.ticketsService.findAll();
   }
 
@@ -46,11 +50,13 @@ export class TicketsController {
   @Put(':id')
   @CanModifyEntity(Ticket)
   @UseGuards(EntityGuard)
-  update(
+  async update(
     @Param('id', ParseUUIDPipe) id: ITicket['id'],
     @Body() ticketData: UpdateTicketDto,
   ) {
-    return this.ticketsService.update(id, ticketData);
+    const ticket = await this.ticketsService.update(id, ticketData);
+    this.client.emit<number, ITicket>(Subject.TicketUpdated, ticket);
+    return ticket;
   }
 
   @Delete(':id')
