@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-orders
+  template:
+    metadata:
+      labels:
+        app: ms-orders
+    spec:
+      containers:
+        - name: ms-orders
+          image: jikaheimo/ms-orders
+          envFrom:
+            - secretRef:
+                name: mysql-secret
+          env:
+            - name: MYSQL_HOST
+              value: orders-mysql-srv
+            - name: MYSQL_DB_NAME
+              value: orders
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SECRET
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-srv
+spec:
+  selector:
+    app: ms-orders
+  type: ClusterIP
+  ports:
+    - name: ms-orders
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

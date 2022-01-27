@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-mysql-depl
+spec:
+  selector:
+    matchLabels:
+      app: orders-mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: orders-mysql
+    spec:
+      containers:
+        - image: mariadb:latest
+          name: orders-mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_PASSWORD
+            - name: MARIADB_DATABASE
+              value: orders
+          ports:
+            - containerPort: 3306
+              name: orders-mysql
+              protocol: TCP
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-mysql-srv
+  labels:
+    name: orders-mysql
+spec:
+  selector:
+    app: orders-mysql
+  ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: 3306
