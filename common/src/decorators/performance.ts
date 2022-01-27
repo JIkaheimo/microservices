@@ -1,7 +1,7 @@
 export function ExecutionTime(
   target: any,
   methodName: string,
-  descriptor: PropertyDescriptor,
+  descriptor: PropertyDescriptor
 ) {
   const originalMethod = descriptor.value;
 

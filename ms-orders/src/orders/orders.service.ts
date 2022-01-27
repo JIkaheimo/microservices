@@ -1,26 +1,85 @@
-import { Injectable } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { Order } from './entities';
+import { IOrder } from './order.interface';
 
 @Injectable()
 export class OrdersService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  constructor(
+    @InjectRepository(Order)
+    private readonly repository: Repository<IOrder>,
+  ) {}
+
+  /**
+   * Returns all the orders.
+   */
+  async findAll(): Promise<IOrder[]> {
+    return await this.repository.find();
   }
 
-  findAll() {
-    return `This action returns all orders`;
+  /**
+   * Creates and returns a new order with the given order data.
+   */
+  async create(orderData: IOrder): Promise<IOrder> {
+    const order = this.repository.create(orderData);
+    return await this.repository.save(order);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  /**
+   * Returns the order with the given id.
+   *
+   * @throws {EntityNotFound}
+   */
+  async findOne(
+    id: IOrder['id'],
+    options?: FindOneOptions<IOrder>,
+  ): Promise<IOrder> {
+    const user = await this.repository.findOne(id, options);
+    if (!user) throw new EntityNotFound(this.repository);
+    return user;
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  /**
+   * Updates the order with the given id with given order data.
+   */
+  async update(
+    id: IOrder['id'],
+    orderData: QueryDeepPartialEntity<IOrder>,
+  ): Promise<IOrder> {
+    await this.repository.update(id, orderData);
+    return await this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  /**
+   * Removes the order with the given id.
+   *
+   * @throws {EntityNotFound}
+   */
+  async remove(id: IOrder['id']) {
+    const { affected } = await this.repository.softDelete(id);
+    if (!affected) {
+      throw new EntityNotFound(this.repository);
+    }
+  }
+
+  /**
+   * Restores the order with the given id.
+   *
+   * @throws {EntityNotFound}
+   */
+  async restore(id: IOrder['id']) {
+    const { affected } = await this.repository.restore(id);
+    if (!affected) {
+      throw new EntityNotFound(this.repository);
+    }
+  }
+}
+
+export class EntityNotFound extends NotFoundException {
+  constructor(repository: Repository<unknown>) {
+    const { tableName } = repository.metadata;
+    super(`${tableName} with the given id does not exist`);
   }
 }
