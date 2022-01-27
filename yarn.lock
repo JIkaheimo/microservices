@@ -692,6 +692,26 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@jikaheimo/common@latest":
+  version "1.0.13"
+  resolved "https://registry.npmjs.org/@jikaheimo/common/-/common-1.0.13.tgz#75dba6c2e2e9c6027dcf3584c7fb244b38eb5674"
+  integrity sha512-N7TjJVW6iKGcwC41LCHBMzyLzrxRjxzoFC8iuOYvxBBWf94AdEAMaBkKly+apbUjzWAej7KkqT0QtwXOF4iH8g==
+  dependencies:
+    "@nestjs/common" "^8.2.6"
+    "@nestjs/config" "^1.1.6"
+    "@nestjs/core" "^8.2.6"
+    "@nestjs/jwt" "^8.0.0"
+    "@nestjs/passport" "^8.1.0"
+    "@nestjs/typeorm" "^8.0.3"
+    class-validator "^0.13.2"
+    dotenv "^14.3.0"
+    express "^4.17.2"
+    joi "^17.5.0"
+    passport "^0.5.2"
+    passport-jwt "^4.0.0"
+    passport-local "^1.0.0"
+    typeorm "^0.2.41"
+
 "@josephg/resolvable@^1.0.0":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@josephg/resolvable/-/resolvable-1.0.1.tgz#69bc4db754d79e1a2f17a650d3466e038d94a5eb"

@@ -44,5 +44,5 @@
     "pub": "npm version patch && yarn build && npm publish --access public"
   },
   "types": "build/index.d.ts",
-  "version": "1.0.12"
+  "version": "1.0.13"
 }
