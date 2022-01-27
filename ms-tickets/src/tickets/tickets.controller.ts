@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   ParseUUIDPipe,
   Post,
@@ -11,7 +12,8 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { EntityGuard, CanModifyEntity } from 'src/entity.guard';
+import { ClientProxy } from '@nestjs/microservices';
+import { CanModifyEntity, EntityGuard } from 'src/entity.guard';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { Ticket } from './entities';
@@ -20,7 +22,10 @@ import { TicketsService } from './tickets.service';
 @Controller('api/tickets')
 @UseGuards(JwtAuthGuard)
 export class TicketsController {
-  constructor(private readonly ticketsService: TicketsService) {}
+  constructor(
+    private readonly ticketsService: TicketsService,
+    @Inject('TICKETING_NATS') private client: ClientProxy,
+  ) {}
 
   @Post()
   create(@Req() { user }, @Body() ticketData: CreateTicketDto) {
@@ -28,7 +33,8 @@ export class TicketsController {
   }
 
   @Get()
-  findAll() {
+  async findAll() {
+    await this.client.send('tickets:findAll', {}).toPromise();
     return this.ticketsService.findAll();
   }
 

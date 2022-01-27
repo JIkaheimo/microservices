@@ -1,15 +1,15 @@
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { NatsOptions, Transport } from '@nestjs/microservices';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.TCP,
+  app.connectMicroservice<NatsOptions>({
+    transport: Transport.NATS,
     options: {
-      port: 4000,
+      servers: ['http://nats-srv:4222'],
     },
   });
 
