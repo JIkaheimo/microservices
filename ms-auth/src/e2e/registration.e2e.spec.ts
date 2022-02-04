@@ -1,11 +1,16 @@
+import { useTestApi, useTestApp, useTestDatabase } from '@jikaheimo/common';
 import { HttpStatus } from '@nestjs/common';
-import { User } from 'src/users/entities/user.entity';
+import { AppModule } from 'src/app.module';
 import { getRepository } from 'typeorm';
-import { request } from './setup';
+import { User } from '../users/entities';
 
 describe('[POST] /api/users/register', () => {
+  const { getApp } = useTestApp(AppModule);
+  useTestDatabase({ useExisting: true });
+  const { getApi } = useTestApi(getApp);
+
   it('returns a 201 on successful registration', () => {
-    return request
+    return getApi()
       .post('/api/users/register')
       .send({
         email: 'test@test.com',
@@ -15,7 +20,7 @@ describe('[POST] /api/users/register', () => {
   });
 
   it('returns a 400 with an invalid email', () => {
-    return request
+    return getApi()
       .post('/api/users/register')
       .send({
         email: 'test.com',
@@ -30,7 +35,7 @@ describe('[POST] /api/users/register', () => {
   });
 
   it('returns a 400 with an invalid password', () => {
-    return request
+    return getApi()
       .post('/api/users/register')
       .send({
         email: 'test@test.com',
@@ -45,19 +50,19 @@ describe('[POST] /api/users/register', () => {
   });
 
   it('returns a 400 with missing email and password', async () => {
-    await request
+    await getApi()
       .post('/api/users/register')
       .send({})
       .expect(HttpStatus.BAD_REQUEST);
 
-    await request
+    await getApi()
       .post('/api/users/register')
       .send({
         email: 'test@test.com',
       })
       .expect(HttpStatus.BAD_REQUEST);
 
-    return request
+    return getApi()
       .post('/api/users/register')
       .send({
         password: 'test',
@@ -70,7 +75,7 @@ describe('[POST] /api/users/register', () => {
     const password = 'test';
     await getRepository(User).save({ email, password });
 
-    return request
+    return getApi()
       .post('/api/users/register')
       .send({
         email,
@@ -85,7 +90,7 @@ describe('[POST] /api/users/register', () => {
   });
 
   it('sets a cookie after successful registration', async () => {
-    const res = await request
+    const res = await getApi()
       .post('/api/users/register')
       .send({
         email: 'test@test.com',

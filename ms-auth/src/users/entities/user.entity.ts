@@ -1,4 +1,4 @@
-import { IUser } from '@jikaheimo/common';
+import { BaseEntity, IUser } from '@jikaheimo/common';
 import { Exclude } from 'class-transformer';
 import { PasswordService } from 'src/authentication/password.service';
 import {
@@ -6,19 +6,12 @@ import {
   BeforeInsert,
   BeforeUpdate,
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   Index,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class User implements IUser {
-  @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
-
+export class User extends BaseEntity implements IUser {
   @Column({ nullable: false })
   @Index({ unique: true })
   readonly email: string;
@@ -26,15 +19,6 @@ export class User implements IUser {
   @Column({ nullable: false })
   @Exclude()
   password: string;
-
-  @CreateDateColumn()
-  readonly createdAt: Date;
-
-  @UpdateDateColumn()
-  readonly updatedAt: Date;
-
-  @DeleteDateColumn()
-  readonly deletedAt: Date;
 
   @Exclude()
   private _password?: string = null;

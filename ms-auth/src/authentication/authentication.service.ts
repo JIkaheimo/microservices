@@ -21,7 +21,8 @@ export class AuthenticationService {
   /**
    * Returns the user with the given email and password.
    *
-   * @throws {BadRequestException}
+   * @throws {UnauthorizedException} Gets thrown if the given credentials
+   * are invalid.
    */
   async getAuthenticatedUser(
     email: IUser['email'],
@@ -38,8 +39,7 @@ export class AuthenticationService {
   /**
    * Authenticates (or logins) the user.
    */
-  async getAccessToken(user: IUser) {
-    const { id, email } = user;
+  async getAccessToken({ id, email }: IUser) {
     const token = await this.jwt.signAsync(
       { id, email },
       {
@@ -57,7 +57,7 @@ export class AuthenticationService {
 
     if (!id) return null;
 
-    return this.users.findById(id);
+    return this.users.findOne(id);
   }
 
   /**

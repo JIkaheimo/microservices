@@ -1,27 +1,18 @@
+import { JwtStrategy as CommonJwtStrategy } from '@jikaheimo/common';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PassportStrategy } from '@nestjs/passport';
-import { Request } from 'express';
-import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends CommonJwtStrategy {
   constructor(
     readonly config: ConfigService,
     private readonly userService: UsersService,
   ) {
-    super({
-      jwtFromRequest: ExtractJwt.fromExtractors([
-        (request: Request) => {
-          return request.cookies?.Authentication;
-        },
-      ]),
-      secretOrKey: config.get('jwt').secret,
-    });
+    super(config);
   }
 
   async validate(payload) {
-    return this.userService.findById(payload.id);
+    return this.userService.findOne(payload.id);
   }
 }

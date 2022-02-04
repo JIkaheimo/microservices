@@ -1,11 +1,24 @@
+import faker from '@faker-js/faker';
+import { useTestApi, useTestApp, useTestDatabase } from '@jikaheimo/common';
 import { HttpStatus } from '@nestjs/common';
+import { AppModule } from 'src/app.module';
+import { User } from 'src/users';
+import { Repository } from 'typeorm';
 import { RegistrationData } from '../authentication/dto/registration-data.dto';
-import { UsersService } from '../users/users.service';
-import { app, request } from './setup';
 
 describe('[POST] /api/users/login', () => {
+  const { getApp } = useTestApp(AppModule);
+  const { getRepository } = useTestDatabase({ useExisting: true });
+  const { getApi } = useTestApi(getApp);
+
+  let users: Repository<User>;
+
+  beforeAll(async () => {
+    users = await getRepository(User);
+  });
+
   it('fails when an email that does not exist is supplied', () => {
-    return request
+    return getApi()
       .post('/api/users/login')
       .send({
         email: 'test@test.com',
@@ -21,18 +34,18 @@ describe('[POST] /api/users/login', () => {
   });
 
   it('fails when an invalid password is supplied', async () => {
-    await app.get(UsersService).create({
+    await users.save({
       email: 'test@test.com',
-      password: 'password',
+      password: faker.internet.password(),
     });
 
-    return request
+    return getApi()
       .post('/api/users/login')
       .send({
         email: 'test@test.com',
-        password: 'wrongpassword',
+        password: faker.internet.password(),
       })
-      .expect(401)
+      .expect(HttpStatus.UNAUTHORIZED)
       .expect((res) => {
         expect(res.body).toHaveProperty(
           'message',
@@ -43,16 +56,17 @@ describe('[POST] /api/users/login', () => {
 
   it('responds with a cookie when given valid login credentials', async () => {
     const credentials: RegistrationData = {
-      email: 'test@test.com',
-      password: 'password',
+      email: faker.internet.email(),
+      password: faker.internet.password(),
     };
 
-    await app.get(UsersService).create(credentials);
+    const user = users.create(credentials);
+    await users.save(user);
 
-    return request
+    return getApi()
       .post('/api/users/login')
       .send(credentials)
-      .expect(200)
+      .expect(HttpStatus.OK)
       .expect((res) => {
         expect(res.get('Set-Cookie')).toBeDefined();
       });

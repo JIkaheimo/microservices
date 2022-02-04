@@ -1,4 +1,4 @@
-import { IUser } from '@jikaheimo/common';
+import { IUser, JwtAuthGuard } from '@jikaheimo/common';
 import {
   Body,
   Controller,
@@ -13,7 +13,6 @@ import { Response } from 'express';
 import { AuthenticationService } from './authentication/authentication.service';
 import { RegistrationData } from './authentication/dto/registration-data.dto';
 import { AuthenticatedRequest } from './authentication/interfaces/authenticated-request.interface';
-import { JwtAuthGuard } from './authentication/jwt-auth.guard';
 import { LocalAuthGuard } from './authentication/local-auth.guard';
 import { UsersService } from './users/users.service';
 

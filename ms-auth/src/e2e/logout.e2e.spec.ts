@@ -1,11 +1,38 @@
+import faker from '@faker-js/faker';
+import { useTestApi, useTestApp, useTestDatabase } from '@jikaheimo/common';
 import { HttpStatus } from '@nestjs/common';
-import { authenticate, request } from './setup';
+import { AppModule } from 'src/app.module';
+import { RegistrationData } from 'src/authentication';
+import { User } from 'src/users';
+import { Repository } from 'typeorm';
 
 describe('[POST] /api/users/logout', () => {
-  it('clears the cookie after logout', async () => {
-    await authenticate();
+  const { getApp } = useTestApp(AppModule);
+  const { getRepository } = useTestDatabase({ useExisting: true });
+  const { authenticate, getApi } = useTestApi(getApp);
 
-    await request
+  let users: Repository<User>;
+
+  beforeAll(async () => {
+    users = await getRepository(User);
+  });
+
+  it('fails when the user is not authenticated', () => {
+    return getApi()
+      .post('/api/users/logout')
+      .send()
+      .expect(HttpStatus.UNAUTHORIZED);
+  });
+
+  it('clears the cookie after logout', async () => {
+    const credentials: RegistrationData = {
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    };
+
+    await users.save(credentials);
+
+    return (await authenticate(credentials))
       .post('/api/users/logout')
       .send()
       .expect(HttpStatus.OK)
