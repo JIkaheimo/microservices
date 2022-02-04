@@ -1,4 +1,10 @@
-import { ITicket, JwtAuthGuard, Subject } from '@jikaheimo/common';
+import {
+  CanModifyEntity,
+  EntityGuard,
+  ITicket,
+  JwtAuthGuard,
+  Subject,
+} from '@jikaheimo/common';
 import {
   Body,
   Controller,
@@ -13,9 +19,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CanModifyEntity, EntityGuard } from 'src/entity.guard';
-import { CreateTicketDto } from './dto/create-ticket.dto';
-import { UpdateTicketDto } from './dto/update-ticket.dto';
+import { CreateTicketDto, UpdateTicketDto } from './dto';
 import { Ticket } from './entities';
 import { TicketsService } from './tickets.service';
 

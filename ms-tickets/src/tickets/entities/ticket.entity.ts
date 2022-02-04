@@ -1,18 +1,8 @@
-import { ITicket } from '@jikaheimo/common';
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { BaseEntity, ITicket } from '@jikaheimo/common';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
-export class Ticket implements ITicket {
-  @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
-
+export class Ticket extends BaseEntity implements ITicket {
   @Column({ nullable: false })
   title: string;
 
@@ -21,13 +11,4 @@ export class Ticket implements ITicket {
 
   @Column({ nullable: false })
   userId: string;
-
-  @CreateDateColumn()
-  readonly createdAt: Date;
-
-  @UpdateDateColumn()
-  readonly updatedAt: Date;
-
-  @DeleteDateColumn()
-  readonly deletedAt: Date;
 }
