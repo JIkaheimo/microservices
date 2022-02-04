@@ -2,8 +2,8 @@ import faker from '@faker-js/faker';
 import { useTestApi, useTestApp, useTestDatabase } from '@jikaheimo/common';
 import { HttpStatus } from '@nestjs/common';
 import { AppModule } from 'src/app.module';
-import { RegistrationData } from 'src/authentication';
-import { User } from 'src/users';
+import { RegistrationData } from 'src/dto';
+import { User } from 'src/entities';
 import { Repository } from 'typeorm';
 
 describe('[POST] /api/users/logout', () => {

@@ -8,7 +8,7 @@ import {
 import { Test } from '@nestjs/testing';
 import { getConnection } from 'typeorm';
 import { AppModule } from './app.module';
-import { User } from './users/entities/user.entity';
+import { User } from './entities/user.entity';
 
 describe.skip('Auth Microservice', () => {
   let app: INestApplication;

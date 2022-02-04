@@ -1,10 +1,9 @@
 import { JwtModule } from '@jikaheimo/common';
 import { Module } from '@nestjs/common';
-import { UsersModule } from 'src/users/users.module';
-import { AuthenticationService } from './authentication.service';
-import { JwtStrategy } from './jwt.strategy';
-import { LocalStrategy } from './local.strategy';
-import { PasswordService } from './password.service';
+import { AuthenticationService } from 'src/services/authentication.service';
+import { PasswordService } from 'src/services/password.service';
+import { JwtStrategy, LocalStrategy } from 'src/strategies';
+import { UsersModule } from './users.module';
 
 @Module({
   imports: [UsersModule, JwtModule.registerAsync()],

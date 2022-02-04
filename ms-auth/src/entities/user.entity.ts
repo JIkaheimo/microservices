@@ -1,6 +1,6 @@
 import { BaseEntity, IUser } from '@jikaheimo/common';
 import { Exclude } from 'class-transformer';
-import { PasswordService } from 'src/authentication/password.service';
+import { PasswordService } from 'src/services/password.service';
 import {
   AfterLoad,
   BeforeInsert,
@@ -23,6 +23,10 @@ export class User extends BaseEntity implements IUser {
   @Exclude()
   private _password?: string = null;
 
+  /**
+   * Stashes the password hash after loading the entity to generate
+   * a new hashed password if it has been changed.
+   */
   @AfterLoad()
   stashPassword() {
     this._password = this.password;

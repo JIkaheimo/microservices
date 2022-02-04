@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { RegistrationData } from 'src/authentication/dto/registration-data.dto';
-import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
+import { RegistrationData } from 'src/dto';
+import { User } from 'src/entities';
+import { UsersService } from 'src/services';
 
 const userData: RegistrationData = {
   email: 'test@test.com',

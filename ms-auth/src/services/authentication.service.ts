@@ -2,8 +2,7 @@ import { EnvironmentVariables, IUser, JwtConfig } from '@jikaheimo/common';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/users.service';
-import { PasswordService } from './password.service';
+import { PasswordService, UsersService } from 'src/services';
 
 @Injectable()
 export class AuthenticationService {

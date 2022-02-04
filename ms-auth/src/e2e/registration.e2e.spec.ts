@@ -1,8 +1,8 @@
 import { useTestApi, useTestApp, useTestDatabase } from '@jikaheimo/common';
 import { HttpStatus } from '@nestjs/common';
 import { AppModule } from 'src/app.module';
+import { User } from 'src/entities';
 import { getRepository } from 'typeorm';
-import { User } from '../users/entities';
 
 describe('[POST] /api/users/register', () => {
   const { getApp } = useTestApp(AppModule);

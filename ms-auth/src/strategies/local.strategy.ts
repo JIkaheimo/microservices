@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from 'src/services';
 
 /**
  * Allows the user to authenticate with the email and password.

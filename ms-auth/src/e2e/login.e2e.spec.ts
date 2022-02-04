@@ -2,9 +2,9 @@ import faker from '@faker-js/faker';
 import { useTestApi, useTestApp, useTestDatabase } from '@jikaheimo/common';
 import { HttpStatus } from '@nestjs/common';
 import { AppModule } from 'src/app.module';
-import { User } from 'src/users';
+import { RegistrationData } from 'src/dto';
+import { User } from 'src/entities';
 import { Repository } from 'typeorm';
-import { RegistrationData } from '../authentication/dto/registration-data.dto';
 
 describe('[POST] /api/users/login', () => {
   const { getApp } = useTestApp(AppModule);

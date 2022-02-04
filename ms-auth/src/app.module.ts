@@ -5,10 +5,9 @@ import {
 } from '@jikaheimo/common';
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { AuthenticationModule } from 'src/modules/authentication.module';
+import { UsersModule } from 'src/modules/users.module';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthenticationModule } from './authentication/authentication.module';
-import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,7 +18,6 @@ import { UsersModule } from './users/users.module';
   ],
   controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor,

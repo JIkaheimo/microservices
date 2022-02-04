@@ -1,6 +1,6 @@
 import faker from '@faker-js/faker';
 import { Factory } from '@linnify/typeorm-factory';
-import { User } from 'src/users/entities';
+import { User } from 'src/entities';
 
 export class UserFactory extends Factory<User> {
   entity = User;

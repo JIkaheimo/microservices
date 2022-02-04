@@ -1,7 +1,7 @@
 import { JwtStrategy as CommonJwtStrategy } from '@jikaheimo/common';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/services';
 
 @Injectable()
 export class JwtStrategy extends CommonJwtStrategy {

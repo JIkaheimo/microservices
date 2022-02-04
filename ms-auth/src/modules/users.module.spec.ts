@@ -1,10 +1,10 @@
 import { ConfigModule, DatabaseModule } from '@jikaheimo/common';
 import { Test } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersController } from 'src/controllers';
+import { User } from 'src/entities';
+import { UsersService } from 'src/services';
 import { getRepository, Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
 
 describe('UsersModule', () => {
   let controller: UsersController;

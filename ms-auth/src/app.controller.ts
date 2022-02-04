@@ -10,11 +10,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { AuthenticationService } from './authentication/authentication.service';
-import { RegistrationData } from './authentication/dto/registration-data.dto';
-import { AuthenticatedRequest } from './authentication/interfaces/authenticated-request.interface';
-import { LocalAuthGuard } from './authentication/local-auth.guard';
-import { UsersService } from './users/users.service';
+import { RegistrationData } from 'src/dto';
+import { LocalAuthGuard } from 'src/guards';
+import { AuthenticatedRequest } from 'src/interfaces';
+import { AuthenticationService, UsersService } from 'src/services';
 
 @Controller('api/users')
 export class AppController {
