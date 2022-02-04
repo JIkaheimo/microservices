@@ -25,8 +25,8 @@ describe("ValidationPipe", () => {
     await reject.toThrow(BadRequestException);
     await reject.toHaveProperty("response", {
       errors: {
-        field2: ["Must be an email", "Must be a string"],
-        field1: ["Must be a string"],
+        field2: ["Field2 must be an email", "Field2 must be a string"],
+        field1: ["Field1 must be a string"],
       },
     });
   });
