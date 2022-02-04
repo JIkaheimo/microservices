@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CatsService } from './cats.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Cat } from './schemas/cat.schema';
+import { Test, TestingModule } from '@nestjs/testing';
 import { Model } from 'mongoose';
+import { CatsService } from './cats.service';
+import { Cat } from './schemas/cat.schema';
 
 const mockCat = {
   name: 'Cat #1',
