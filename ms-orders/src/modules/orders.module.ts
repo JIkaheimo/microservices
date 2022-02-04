@@ -2,12 +2,14 @@ import { JwtStrategy } from '@jikaheimo/common';
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Order } from './entities/order.entity';
-import { OrdersController } from './orders.controller';
-import { OrdersService } from './orders.service';
+import { OrdersController } from 'src/controllers';
+import { Order } from 'src/entities';
+import { OrdersService } from 'src/services';
+import { TicketsModule } from './tickets.module';
 
 @Module({
   imports: [
+    TicketsModule,
     TypeOrmModule.forFeature([Order]),
     ClientsModule.register([
       {
