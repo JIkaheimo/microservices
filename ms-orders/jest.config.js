@@ -4,7 +4,7 @@ module.exports = {
   testEnvironment: 'node',
 
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.ts$': 'ts-jest',
   },
 
   moduleNameMapper: {
@@ -12,10 +12,8 @@ module.exports = {
   },
 
   rootDir: 'src',
-  testRegex: '.*\\.e2e.spec\\.ts$',
+  testRegex: '.*\\.spec\\.ts$',
 
-  collectCoverageFrom: ['**/*.(t|j)s'],
+  collectCoverageFrom: ['**/*.ts'],
   coverageDirectory: '../coverage',
-
-  setupFilesAfterEnv: ['<rootDir>/e2e/setup.ts'],
 };

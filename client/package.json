@@ -1,19 +1,21 @@
 {
-  "devDependencies": {
-    "nuxt3": "latest"
-  },
-  "private": true,
-  "scripts": {
-    "build": "nuxi build",
-    "dev": "nuxi dev",
-    "start": "node .output/server/index.mjs"
-  },
   "dependencies": {
+    "@jikaheimo/common": "*",
     "@vuelidate/core": "^2.0.0-alpha.34",
     "@vuelidate/validators": "^2.0.0-alpha.26",
     "axios": "^0.25.0",
     "bootstrap": "^5.1.3",
     "bootswatch": "^5.1.3",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nuxt3": "latest"
+  },
+  "name": "@jikaheimo/client",
+  "private": true,
+  "scripts": {
+    "build": "nuxi build",
+    "dev": "nuxi dev",
+    "start": "node .output/server/index.mjs"
   }
 }

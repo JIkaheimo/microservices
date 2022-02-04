@@ -371,6 +371,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@faker-js/faker@^6.0.0-alpha.5":
+  version "6.0.0-alpha.5"
+  resolved "https://registry.npmjs.org/@faker-js/faker/-/faker-6.0.0-alpha.5.tgz#2c1ab022b3aed76d563b1510ba2b797ce141d25e"
+  integrity sha512-8Is/xFxNgricqmhQR/AJ4Vi0cKzSR7FcpE0ImG9dWciuSxUkyCiK+B5/hTQP8jrVbtgTjpFC1AaTCnALJOBDmw==
+
 "@hapi/hoek@^9.0.0":
   version "9.2.1"
   resolved "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.2.1.tgz#9551142a1980503752536b5050fd99f4a7f13b17"
@@ -582,10 +587,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@jikaheimo/common@latest":
-  version "1.0.13"
-  resolved "https://registry.npmjs.org/@jikaheimo/common/-/common-1.0.13.tgz#75dba6c2e2e9c6027dcf3584c7fb244b38eb5674"
-  integrity sha512-N7TjJVW6iKGcwC41LCHBMzyLzrxRjxzoFC8iuOYvxBBWf94AdEAMaBkKly+apbUjzWAej7KkqT0QtwXOF4iH8g==
+"@jikaheimo/common@^1.0.26":
+  version "1.0.26"
+  resolved "https://registry.npmjs.org/@jikaheimo/common/-/common-1.0.26.tgz#9f09be3904b0c4d30ff80ddec03b5b4d030c0081"
+  integrity sha512-nCZijkZUZeBeZLrW/7yV/HEu+f0/jlmB6U/H5woPN5OPu4UKo7cvg9wFuuW6LPN7K972CE7TRbC3m1RL0ONgUg==
   dependencies:
     "@nestjs/common" "^8.2.6"
     "@nestjs/config" "^1.1.6"
@@ -601,6 +606,11 @@
     passport-jwt "^4.0.0"
     passport-local "^1.0.0"
     typeorm "^0.2.41"
+
+"@linnify/typeorm-factory@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.npmjs.org/@linnify/typeorm-factory/-/typeorm-factory-1.0.12.tgz#879b60c738902d758f6aaaaaf4a00ad455bbd87e"
+  integrity sha512-Gkf6OnatI0/KJznICM2DBTJr6mABKuQLpoYVLEMGXO/HG62V+nXRyY8smqMJsEi4NfYhSq6tOb3OCQoVgFmBtA==
 
 "@nestjs/cli@^8.0.0":
   version "8.2.0"

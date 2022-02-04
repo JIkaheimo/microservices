@@ -16,6 +16,7 @@
     "typeorm": "^0.2.41"
   },
   "devDependencies": {
+    "@nestjs/testing": "^8.2.6",
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.0",
@@ -41,8 +42,14 @@
   "scripts": {
     "build": "yarn clean && tsc",
     "clean": "del build",
-    "pub": "npm version patch && yarn build && npm publish --access public"
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "pub": "npm version patch && yarn build && npm publish --access public",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:watch": "jest --watch"
   },
   "types": "build/index.d.ts",
-  "version": "1.0.13"
+  "version": "1.0.27"
 }
