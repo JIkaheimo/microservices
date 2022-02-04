@@ -1,54 +1,64 @@
-import { Injectable } from "@nestjs/common";
-import { IBase } from "src";
-import { EntityNotFound } from "src/exceptions";
-import { DeepPartial, FindOneOptions, Repository } from "typeorm";
+import {
+  DeepPartial,
+  FindManyOptions,
+  FindOneOptions,
+  Repository,
+  SaveOptions,
+} from "typeorm";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { BaseEntity } from "../entities";
+import { EntityNotFound } from "../exceptions";
 
-@Injectable()
-export abstract class EntityCrudService<Entity extends IBase> {
-  protected readonly repository: Repository<Entity>;
+export abstract class EntityCrudService<Entity extends BaseEntity> {
+  constructor(protected readonly repository: Repository<Entity>) {}
 
   /**
-   * Returns all the items from the given repository.
+   * Returns all the entities.
    */
-  async findAll(): Promise<Entity[]> {
-    return await this.repository.find();
+  async findAll(options?: FindManyOptions<Entity>) {
+    return await this.repository.find(options);
   }
 
   /**
-   * Creates and returns a new with the given user data.
+   * Creates and returns a new entity with the given entity data.
    */
-  async create(creationData: DeepPartial<Entity>): Promise<Entity> {
-    return await this.repository.save(creationData);
+  async create(
+    partialEntity: DeepPartial<Entity>,
+    options?: SaveOptions
+  ): Promise<Entity> {
+    const entity = this.repository.create(partialEntity);
+    return await this.repository.save(entity as any, options);
   }
 
   /**
-   * Returns the user with the given id.
+   * Returns the entity with the given id.
+   * Throws an error if the entity does not exist.
    *
    * @throws {EntityNotFound}
    */
-  async findOne(
-    id: Entity["id"],
-    options?: FindOneOptions<Entity>
-  ): Promise<Entity> {
-    const user = await this.repository.findOne(id, options);
-    if (!user) throw new EntityNotFound(this.repository);
-    return user;
+  async findOne(id: Entity["id"], options?: FindOneOptions<Entity>) {
+    const entity = await this.repository.findOne(id, options);
+    if (!entity) throw new EntityNotFound(this.repository);
+    return entity;
   }
 
   /**
-   * Updates the ticket with the given id with given ticket data.
+   * Updates the entity with the given id with partial entity data.
+   * Throws an error if the entity does not exist.
+   *
+   * @throws {EntityNotFound}
    */
   async update(
     id: Entity["id"],
-    ticketData: QueryDeepPartialEntity<Entity>
-  ): Promise<Entity> {
-    await this.repository.update(id, ticketData);
+    partialEntity: QueryDeepPartialEntity<Entity>
+  ) {
+    await this.repository.update(id, partialEntity);
     return await this.findOne(id);
   }
 
   /**
-   * Removes the ticket with the given id.
+   * Removes the entity with the given id.
+   * Throws an error if entity with the given id does not exist.
    *
    * @throws {EntityNotFound}
    */
@@ -60,7 +70,8 @@ export abstract class EntityCrudService<Entity extends IBase> {
   }
 
   /**
-   * Restores the ticket with the given id.
+   * Restores the entity with the given id.
+   * Throws an error if entity with the given id does not exist.
    *
    * @throws {EntityNotFound}
    */

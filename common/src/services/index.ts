@@ -1,1 +1,1 @@
-export const assd = 3;
+export * from "./entity-crud.service";
